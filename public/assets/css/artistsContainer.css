@@ -1,0 +1,14 @@
+/* Artists */
+.artists-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+    
+}
+
+.artist-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}

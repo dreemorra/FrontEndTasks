@@ -1,0 +1,32 @@
+/* Search */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+}
+
+#search-input {
+    width: 300px;
+    height: 30px;
+    margin: 10px;
+    margin-left: 0;
+    padding-left: 10px;
+    border: 1px solid;
+    border-radius: 20px;
+    border-color: var(--secondary-color);
+}
+
+.search-items {
+    display: flex;
+    flex-flow: column wrap;
+    overflow: auto;
+    height: 220px;
+    margin: 10px;
+}
+
+@media only screen and (max-width: 1024px) and (max-height: 1280px) {
+    .search-items {
+        overflow: scroll;
+        scrollbar-width: none;
+    }
+}

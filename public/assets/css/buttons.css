@@ -1,0 +1,47 @@
+.btn-light:hover {
+    background-color: #ffffff;
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.btn-light {
+    padding: 5px 5px;
+    margin: 10px 10px;
+    border: thin solid #ffffff;
+    border-radius: 60px;
+    border-color: #ffffff;
+    cursor: pointer;
+    font-size: 20px;
+    text-transform: uppercase;
+    transition: all .2s cubic-bezier(.3,0,0,1);
+}
+
+.btn-dark {
+    margin: 0 10px 10px 10px;
+    padding: 5px 5px;
+    border: thin solid #666;
+    background-color: #666;
+    border-radius: 60px;
+    cursor: pointer;
+    font-size: 20px;
+    text-transform: uppercase;
+    transition: all .2s cubic-bezier(.3,0,0,1);
+}
+
+.little-play-btn {
+    font-family: 'Material Icons';
+    font-size: 50px;
+    display: inline-block;
+    line-height: 1;
+    color: rgba(255, 176, 25);
+    transition: .2s ease;
+}
+
+.medium-play-btn {
+    font-family: 'Material Icons';
+    font-size: 70px;
+    display: inline-block;
+    line-height: 1;
+    color: rgba(255, 176, 25);
+    transition: .2s ease;
+}
