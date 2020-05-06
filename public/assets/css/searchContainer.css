@@ -6,13 +6,13 @@
 }
 
 #search-input {
-    width: 300px;
-    height: 30px;
+    width: 18.75em;
+    height: 1.875em;
     margin: 10px;
     margin-left: 0;
     padding-left: 10px;
     border: 1px solid;
-    border-radius: 20px;
+    border-radius: 1.25em;
     border-color: var(--secondary-color);
 }
 
@@ -20,7 +20,7 @@
     display: flex;
     flex-flow: column wrap;
     overflow: auto;
-    height: 220px;
+    height: 13.75em;
     margin: 10px;
 }
 

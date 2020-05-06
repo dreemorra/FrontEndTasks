@@ -3,12 +3,11 @@
     display: flex;
     flex-direction: column;
     padding: 3%;
-    
 }
 
 .artist-img {
-    width: 160px;
-    height: 160px;
+    width: 10em;
+    height: 10em;
     border-radius: 50%;
     margin-bottom: 5px;
 }

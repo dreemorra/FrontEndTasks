@@ -12,22 +12,22 @@
 #liked-item {
     margin: 5px 20px 0 0;
     padding: 15px;
-    height: 210px;
-    width: 320px;
+    height: 13.125em;
+    width: 20em;
     background-color: #ffffff;
     transition: background-color .25s ease;
     border: 1px solid;
     border-color: var(--secondary-color);
-    border-radius: 20px;
+    border-radius: 1.25em;
 }
 
 #liked-name {
-    font-size: 16px;
+    font-size: 1em;
     color: var(--secondary-color);
 }
 
 #liked-description {
-    font-size: 18px;
+    font-size: 1.125em;
     color: var(--primary-color);
 }
 
@@ -38,7 +38,7 @@
 
 @media only screen and (max-width: 1024px) {
     #liked-item {
-        width: 160px;
+        width: 10em;
     }
     #liked-div {
         margin-top: 90%;

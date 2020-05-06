@@ -19,10 +19,10 @@
 .playlist-item {
     margin: 5px 20px 0 0;
     padding: 15px;
-    height: 210px;
-    width: 160px;
+    height: 13.125em;
+    width: 10em;
     background-color: #666666;
-    border-radius: 20px;
+    border-radius: 1.25em;
 }
 
 .playlist-div {
@@ -34,8 +34,8 @@
 }
 
 .playlist-img {
-    width: 160px;
-    height: 160px;
+    width: 10em;
+    height: 10em;
     margin-bottom: 5px;
 }
 

@@ -8,8 +8,8 @@
 
 .genre-item {
     margin: 5px 20px 0 0;
-    height: 160px;
-    width: 160px;
+    height: 10em;
+    width: 10em;
     background-color: var(--secondary-color);
     border-radius: 7%;
     position: relative;
@@ -22,8 +22,8 @@
 }
 
 .genres-img {
-    width: 100px;
-    height: 100px;
+    width: 6.25em;
+    height: 6.25em;
     border-radius: 7%;
     vertical-align: bottom;
     position: absolute;

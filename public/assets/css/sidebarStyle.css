@@ -1,6 +1,6 @@
 .sidebar {
-    width: 300px;
-    min-width: 250px;
+    width: 18.75em;
+    min-width: 15.625em;
     background-color: var(--primary-color);
     display: flex;
     flex-direction: column;
@@ -31,7 +31,7 @@
 }
 
 .navigation-ref {
-    font-size: 18px;
+    font-size: 1.125em;
     margin-left: 2%;
     color: var(--accent-color);
 }
