@@ -4,6 +4,7 @@
     background-color: var(--primary-color);
     display: flex;
     flex-direction: column;
+    float: left;
 }
 
 .navigation {

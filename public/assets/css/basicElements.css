@@ -7,6 +7,7 @@
 #main-container {
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
 
 header {
@@ -36,6 +37,9 @@ ul {
     flex-direction: column;
 }
 
+.main-div {
+    display: flex;
+}
 
 .material-icons {
     font-family: 'Material Icons';
