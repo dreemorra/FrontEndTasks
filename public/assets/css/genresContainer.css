@@ -1,0 +1,32 @@
+/* Genres */
+.genres-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+    
+}
+
+.genre-item {
+    margin: 5px 20px 0 0;
+    height: 10em;
+    width: 10em;
+    background-color: var(--secondary-color);
+    border-radius: 7%;
+    position: relative;
+}
+
+.genre-name-link {
+    margin: 20px;
+    position: absolute;
+    top: 0;
+}
+
+.genres-img {
+    width: 6.25em;
+    height: 6.25em;
+    border-radius: 7%;
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

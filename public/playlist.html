@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Breewer - Playlist_Name</title>
+	<meta charset="utf-8">
+	<meta name="author" content="Alexandra Sattarova">
+    <meta name="description" content="Breewer - online player">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/sidebarStyle.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/footerStyle.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/headerStyle.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/buttons.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/basic.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/playlistsContainer.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/playlistStyle.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/basicElements.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/songItem.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+	<header class="header">
+        <div id="logo">
+            <a href="index.html">Breewer</a>
+        </div>
+        <div id = "auth">
+            <a class="btn-light" href="login.html">Log in</a>
+            <a class="btn-light" href="signup.html">Sign up</a>
+        </div>
+	</header>
+
+    <div class="main-div">
+        <aside class="sidebar">
+            <nav>
+                <div class="navigation">
+                    <ul>
+                        <li class="nav-item">
+                            <span class="material-icons"> queue_music </span>
+                            <a class="navigation-ref" href="#nav-playlists">Popular playlists</a></li>
+                        <li class="nav-item">
+                            <span class="material-icons"> search</span>
+                            <a class="navigation-ref" href="#nav-search">Search</a></li>
+                        <li class="nav-item">
+                            <span class="material-icons"> library_music </span>
+                            <a class="navigation-ref" href="#nav-library">Your library</a></li>
+                        <li class="nav-item">
+                            <span class="material-icons"> person </span>
+                            <a class="navigation-ref" href="#nav-artists">Artists</a></li>
+                        <li class="nav-item">
+                            <span class="material-icons"> music_note </span>
+                            <a class="navigation-ref" href="#nav-genres">Genres</a></li>
+                        <li class="nav-item">
+                            <span class="material-icons"> album </span>
+                            <a class="navigation-ref" href="#nav-albums">Albums</a></li>
+                    </ul>
+                </div>
+                <div class="marked_playlists">
+                    <h2 id="marked-playlists-h">Playlists</h2>
+                    <ul>
+                        <li class="nav-item">
+                            <span class="material-icons"> playlist_add </span>
+                            <a class="navigation-ref" href="add-playlist.html">New playlist</a></li>
+                        <li class="nav-item">
+                            <span class="material-icons"> favorite </span>
+                            <a class="navigation-ref" href="playlist.html">Liked songs</a></li>
+                    </ul>
+                    <ul>
+                        <li class="nav-item"><a class="navigation-ref" href="playlist.html">Playlist_Name</a></li>
+                        <li class="nav-item"><a class="navigation-ref" href="playlist.html">Playlist_Name</a></li>
+                        <li class="nav-item"><a class="navigation-ref" href="playlist.html">Playlist_Name</a></li>
+                        <li class="nav-item"><a class="navigation-ref" href="playlist.html">Playlist_Name</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main id="main-container">
+            <div class="content">
+                <section class="currentPlaylist">
+                    <div class="playlistInfo">
+                        <div>
+                            <img id="playlist-cover" class="playlist-img" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Cover image">
+                        </div>
+                        <div class="playlistMainInfo">
+                            <h2>Playlist</h2>
+                            <h1 class="playlist-name">Playlist_Name</h1>
+                            <p class="playlistDescription">Playlist_Description</p>
+                            <p class="playlistDescription">14h 48min</p>
+                        </div>
+                        <div class="playlist-actions">
+                            <button class="playlist-btn">Play</button>
+                            <button class="playlist-btn">Add to Favotites</button>
+                        </div>
+                    </div>
+                    <div class="playlistItems">
+                        <ol>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                            <li class="cur-playlist-item">
+                                <div class="song-item">
+                                    <div class="playlist-song-div">
+                                        <img class="playlist-song-image" src="https://f4.bcbits.com/img/a1517161160_10.jpg" alt="Song image">
+                                        <div class="song-play-btn">
+                                            <span class="medium-play-btn"> play_arrow </span>
+                                        </div>
+                                    </div>
+                                    <div class="song-info">
+                                        <a class="song-name" href="*">Result_Song_Name</a>
+                                        <a class="song-artist" href="*">Result_Song_Artist</a>
+                                    </div>
+                                </div>
+                                <div><p class="song-time">2:28</p></div>
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+	<footer class="footer">
+        <nav>
+        </nav>
+        <div id="footer-div">
+            <a href="mailto:s.satturn@gmail.com">Bug report</a>
+            <p>Mora, 2020</p>
+        </div>
+	</footer>
+</body>
+</html>

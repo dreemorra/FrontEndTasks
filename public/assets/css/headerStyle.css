@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 20px 0px 25px 20px; */
+}
+
+#logo {
+    margin: 20px;
+    font-size: 2.5em;
+}
+
+#auth {
+    display: flex;
+    justify-content: flex-end;
+    margin: auto 10px auto auto;
+}
