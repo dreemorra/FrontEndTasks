@@ -1,79 +1,10 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-	<title>Breewer - Playlist_Name</title>
-	<meta charset="utf-8">
-	<meta name="author" content="Alexandra Sattarova">
-    <meta name="description" content="Breewer - online player">
+import Sidebar       from '../components/Sidebar.js'
+let Playlist = {
 
-    <link rel="stylesheet" type="text/css" href="assets/css/sidebarStyle.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/footerStyle.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/headerStyle.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/buttons.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/basic.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/playlistsContainer.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/playlistStyle.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/basicElements.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/songItem.css">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-</head>
-
-<body>
-	<header class="header">
-        <div id="logo">
-            <a href="index.html">Breewer</a>
-        </div>
-        <div id = "auth">
-            <a class="btn-light" href="login.html">Log in</a>
-            <a class="btn-light" href="signup.html">Sign up</a>
-        </div>
-	</header>
-
-    <div class="main-div">
-        <aside class="sidebar">
-            <nav>
-                <div class="navigation">
-                    <ul>
-                        <li class="nav-item">
-                            <span class="material-icons"> queue_music </span>
-                            <a class="navigation-ref" href="#nav-playlists">Popular playlists</a></li>
-                        <li class="nav-item">
-                            <span class="material-icons"> search</span>
-                            <a class="navigation-ref" href="#nav-search">Search</a></li>
-                        <li class="nav-item">
-                            <span class="material-icons"> library_music </span>
-                            <a class="navigation-ref" href="#nav-library">Your library</a></li>
-                        <li class="nav-item">
-                            <span class="material-icons"> person </span>
-                            <a class="navigation-ref" href="#nav-artists">Artists</a></li>
-                        <li class="nav-item">
-                            <span class="material-icons"> music_note </span>
-                            <a class="navigation-ref" href="#nav-genres">Genres</a></li>
-                        <li class="nav-item">
-                            <span class="material-icons"> album </span>
-                            <a class="navigation-ref" href="#nav-albums">Albums</a></li>
-                    </ul>
-                </div>
-                <div class="marked_playlists">
-                    <h2 id="marked-playlists-h">Playlists</h2>
-                    <ul>
-                        <li class="nav-item">
-                            <span class="material-icons"> playlist_add </span>
-                            <a class="navigation-ref" href="add-playlist.html">New playlist</a></li>
-                        <li class="nav-item">
-                            <span class="material-icons"> favorite </span>
-                            <a class="navigation-ref" href="playlist.html">Liked songs</a></li>
-                    </ul>
-                    <ul>
-                        <li class="nav-item"><a class="navigation-ref" href="playlist.html">Playlist_Name</a></li>
-                        <li class="nav-item"><a class="navigation-ref" href="playlist.html">Playlist_Name</a></li>
-                        <li class="nav-item"><a class="navigation-ref" href="playlist.html">Playlist_Name</a></li>
-                        <li class="nav-item"><a class="navigation-ref" href="playlist.html">Playlist_Name</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </aside>
+    render: async () => {
+        return /*html*/ `
+        <div style="display: flex;">
+        <div id="sidebar_container"></div>
         <main id="main-container">
             <div class="content">
                 <section class="currentPlaylist">
@@ -309,14 +240,17 @@
                 </section>
             </div>
         </main>
-    </div>
-	<footer class="footer">
-        <nav>
-        </nav>
-        <div id="footer-div">
-            <a href="mailto:s.satturn@gmail.com">Bug report</a>
-            <p>Mora, 2020</p>
         </div>
-	</footer>
-</body>
-</html>
+        `
+    }
+    // All the code related to DOM interactions and controls go in here.
+    // This is a separate call as these can be registered only after the DOM has been painted
+    , after_render: async () => {
+        const sidebar = null || document.getElementById('sidebar_container');
+        sidebar.innerHTML = await Sidebar.render();
+        await Sidebar.after_render();
+    }
+}
+
+
+export default Playlist;
