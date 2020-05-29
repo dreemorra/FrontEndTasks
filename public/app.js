@@ -2,12 +2,12 @@
 
 import Home         from './views/pages/Home.js'
 import Error404     from './views/pages/Error404.js'
-import PostShow     from './views/pages/PostShow.js'
 import Register     from './views/pages/Register.js'
 import Login        from './views/pages/Login.js'
 import Playlist     from './views/pages/Playlist.js'
+import PlaylistEdit from './views/pages/PlaylistEdit.js'
+import Upload       from './views/pages/Upload.js'
 
-// import Upload       from './views/pages/Upload.js'
 import Header       from './views/components/Header.js'
 import Footer       from './views/components/Footer.js' 
 import Utils        from './services/Utils.js'
@@ -18,11 +18,20 @@ import Utils        from './services/Utils.js'
 
 const routes = {
     '/'                     : Home
-    , '/playlist/:id'       : PostShow
     , '/signup'             : Register
     , '/login'              : Login
     , '/playlist'           : Playlist
-    // , '/upload'             : Upload
+    , '/playlist/:id'       : Playlist
+    , '/album'              : Playlist
+    , '/album/:id'          : Playlist
+    , '/genre'              : Playlist
+    , '/genre/:id'          : Playlist
+    , '/artist'             : Playlist
+    , '/artist/:id'         : Playlist
+    , '/edit_playlist'      : PlaylistEdit
+    , '/edit_playlist/:id'  : PlaylistEdit
+    , '/add_playlist'       : PlaylistEdit
+    , '/upload_song'        : Upload
 };
 
 

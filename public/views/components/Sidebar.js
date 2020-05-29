@@ -31,10 +31,13 @@ let Sidebar = {
                     <ul>
                         <li class="nav-item">
                             <span class="material-icons"> playlist_add </span>
-                            <a class="navigation-ref" href="add-/#/playlist">New playlist</a></li>
+                            <button id="new-playlist" class="navigation-ref" style="background-color: transparent; border: 0;">New playlist</button></li>
                         <li class="nav-item">
                             <span class="material-icons"> favorite </span>
                             <a class="navigation-ref" href="/#/playlist">Liked songs</a></li>
+                        <li class="nav-item">
+                            <span class="material-icons"> add </span>
+                            <a class="navigation-ref" href="/#/upload_song">Upload song</a></li>
                     </ul>
                     <ul>
                         <li class="nav-item"><a class="navigation-ref" href="/#/playlist">Playlist_Name</a></li>
@@ -59,6 +62,23 @@ let Sidebar = {
                 document.getElementById("playlists_list").classList.add('hide');
                 document.getElementById("lib_item").classList.add('hide');
             }
+        });
+
+        const newPlaylistButton = document.getElementById('new-playlist');
+
+        newPlaylistButton.addEventListener("click", async function(e){
+            const playlistIdRef = await firebase.database().ref('/playlist_id/id').once('value');
+            const playlistId = playlistIdRef.val();
+
+            firebase.database().ref('playlists/' + playlistId).set({
+                id: playlistId,
+                name: "Name",
+                desc: "Description",
+                created: firebase.auth().currentUser.email,
+                idPicture: "addPlaylist",
+                songCount: 0
+            });
+            document.location.href ="/#/add_playlist";
         });
     }
 
