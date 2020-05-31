@@ -74,7 +74,7 @@ let Upload = {
         const users = await dbFunctions.getItems('users');
         for(const [index, userRef] of users.entries()){
             if (!userRef) continue;
-            if (userRef.username == firebase.auth().currentUser.email) {
+            if (firebase.auth().currentUser && userRef.username == firebase.auth().currentUser.email) {
                 user = userRef;
                 break;
             }

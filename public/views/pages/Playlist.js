@@ -70,7 +70,7 @@ let Playlist = {
         
         for(const [index, userRef] of users.entries()){
             if (!userRef) continue;
-            if (userRef.username == firebase.auth().currentUser.email) {
+            if (firebase.auth().currentUser && userRef.username == firebase.auth().currentUser.email) {
                 user = userRef;
                 userId = index;
                 likedPlaylists = await dbFunctions.getItems('users/' + userId + '/likedPlaylists');
