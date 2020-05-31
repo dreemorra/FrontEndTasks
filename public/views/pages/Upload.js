@@ -69,7 +69,16 @@ let Upload = {
 
         const picId = await dbFunctions.getItems('song_pic_id/id');
         const songId = await dbFunctions.getItems('song_id/id');
-        // console.log("picId " + picId + " " + "songId " + songId);
+
+        let user;        
+        const users = await dbFunctions.getItems('users');
+        for(const [index, userRef] of users.entries()){
+            if (!userRef) continue;
+            if (userRef.username == firebase.auth().currentUser.email) {
+                user = userRef;
+                break;
+            }
+        }
 
         const genreList = await dbFunctions.getItems('genres');
         console.log(genreList);
@@ -103,13 +112,13 @@ let Upload = {
             if (!name.value || !author.value || !genres.value){
                 document.getElementById('error-text').innerHTML = "Song must have all fields!"
             }else if (file){
-                let storageRef = firebase.storage().ref('songs/id' + songId + '.mp3');
+                let storageRef = firebase.storage().ref('pics/id' + songId + '.mp3');
                 storageRef.put(file);
                 firebase.database().ref('/song_id/id').set(songId + 1);
 
                 let thisPicId = 0;
                 if (picture){
-                    let storageRef = firebase.storage().ref('albums/idSongPic' + picId + '.png');
+                    let storageRef = firebase.storage().ref('pics/idSongPic' + picId + '.png');
                     storageRef.put(picture);
                     firebase.database().ref('/song_pic_id/id').set(picId + 1);
                     thisPicId = picId;
@@ -129,6 +138,13 @@ let Upload = {
                         console.log('data saved succsessfully!');
                     }
                 });
+
+                // firebase.database().ref('users/' + user.id + '/likedPlaylists/' + (user.likedPlaylistsCount + 1)).set({
+                //     id: user.likedPlaylistsCount + 1
+                // });
+                // firebase.database().ref('users/' + user.id).set({
+                //     likedPlaylistsCount: user.likedPlaylistsCount + 1
+                // });
 
                 document.location.href = "/#/";
             } else {

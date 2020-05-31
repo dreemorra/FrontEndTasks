@@ -649,3 +649,48 @@ form input {
     border-radius: 50%;
     margin-bottom: 5px;
 }
+
+/* Player */
+.audio-player {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0px;
+    background-color: rgba(66,66,66,.95);
+}
+
+.player-input {
+    width: 100%;
+    outline: none;
+    position: relative;
+}
+
+input[type="range"] {
+    width: 100%;
+    position: absolute;
+    top: -30px;
+    left: 0;
+}
+
+.player-content {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.player-button {
+    background-color: transparent;
+    border: 0;
+    color: rgba(251, 192, 45);
+    scale: 2;
+    margin: 5px;
+}
+
+.player-duration-time {
+    margin: 20px 10px;
+    font-size: 1.5em;
+    color: white;
+}

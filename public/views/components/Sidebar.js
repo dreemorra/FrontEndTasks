@@ -34,16 +34,10 @@ let Sidebar = {
                             <button id="new-playlist" class="navigation-ref" style="background-color: transparent; border: 0;">New playlist</button></li>
                         <li class="nav-item">
                             <span class="material-icons"> favorite </span>
-                            <a class="navigation-ref" href="/#/playlist">Liked songs</a></li>
+                            <a class="navigation-ref" href="/#/liked">Liked songs</a></li>
                         <li class="nav-item">
                             <span class="material-icons"> add </span>
                             <a class="navigation-ref" href="/#/upload_song">Upload song</a></li>
-                    </ul>
-                    <ul>
-                        <li class="nav-item"><a class="navigation-ref" href="/#/playlist">Playlist_Name</a></li>
-                        <li class="nav-item"><a class="navigation-ref" href="/#/playlist">Playlist_Name</a></li>
-                        <li class="nav-item"><a class="navigation-ref" href="/#/playlist">Playlist_Name</a></li>
-                        <li class="nav-item"><a class="navigation-ref" href="/#/playlist">Playlist_Name</a></li>
                     </ul>
                 </div>
             </nav>

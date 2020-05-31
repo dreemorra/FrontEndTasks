@@ -11,6 +11,7 @@ import Upload       from './views/pages/Upload.js'
 import Header       from './views/components/Header.js'
 import Footer       from './views/components/Footer.js' 
 import Utils        from './services/Utils.js'
+// import Player       from './views/components/Player.js'
 
 
 
@@ -28,6 +29,7 @@ const routes = {
     , '/genre/:id'          : Playlist
     , '/artist'             : Playlist
     , '/artist/:id'         : Playlist
+    , '/liked'              : Playlist
     , '/edit_playlist'      : PlaylistEdit
     , '/edit_playlist/:id'  : PlaylistEdit
     , '/add_playlist'       : PlaylistEdit

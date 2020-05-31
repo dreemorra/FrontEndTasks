@@ -1,6 +1,6 @@
-export async function getItemImage(value, id){
+export async function getItemImage(id){
     let ref = firebase.storage().ref();
-    const imgRef = ref.child("/" + value + "/" + id + ".png");
+    const imgRef = ref.child("/pics/" + id + ".png");
     const downloadURL = await imgRef.getDownloadURL();
     return downloadURL;
 }

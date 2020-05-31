@@ -1,3 +1,5 @@
+import * as dbFunctions from '../../services/dbFunctions.js'
+
 let Register = {
 
     render: async () => {
@@ -20,6 +22,8 @@ let Register = {
     // This is a separate call as these can be registered only after the DOM has been painted
     , after_render: async () => {
 
+        const userId = await dbFunctions.getItems('user_id/id');
+
         document.getElementById("login-btn").addEventListener ("click",  () => {
             event.preventDefault();
             const email       = document.getElementById("username_input");
@@ -33,12 +37,18 @@ let Register = {
             } else {
                 const auth = firebase.auth();
                 const promise = auth.createUserWithEmailAndPassword(email.value, pass.value);
+                
                 promise
                     .then(function(regUser){
+                        firebase.database().ref('/user_id/id').set(userId + 1);
+                        firebase.database().ref('/users/' + userId).set({
+                            username: email.value,
+                            likedSongsCount: 0,
+                            likedPlaylistsCount: 0
+                        });
                         window.location.href = '/#/';
                     })
                     .catch(alert(e.message));
-                alert(`User with email ${email.value} was successfully submitted!`)
             }    
         })
     }

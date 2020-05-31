@@ -24,7 +24,7 @@ let PlaylistAdd = {
                             </div>
                             <div class="playlist-actions">
                                 <label class="playlist-btn">
-                                <input type="file" id="add-pic-button" style="display: none">
+                                <input type="file" accept=".png" id="add-pic-button" style="display: none">
                                 Edit pic </label>
                                 <button id="save-button" class="playlist-btn">Save</button>
                                 <button id="delete-button" class="playlist-btn">Delete</button>
@@ -77,6 +77,18 @@ let PlaylistAdd = {
         const searchInput = document.getElementById('search-input');
         let query = ""
         
+        let user;
+        let userId;        
+        const users = await dbFunctions.getItems('users');
+        for(const [index, userRef] of users.entries()){
+            if (!userRef) continue;
+            if (userRef.username == firebase.auth().currentUser.email) {
+                user = userRef;
+                userId = index;
+                break;
+            }
+        }
+        console.log(userId);
 
         let snap = await firebase.database().ref('/playlists/' + playlistId);
         snap.on("value", async function(snap) {
@@ -85,19 +97,20 @@ let PlaylistAdd = {
             desc.value = playlist.desc;
             playlistAuthor.innerHTML = "Author: " + playlist.created;
             author = playlist.created;
-            let picUrl = await dbFunctions.getItemImage('playlists', playlist.idPicture);
+            let picUrl = await dbFunctions.getItemImage(playlist.idPicture);
             cover.src = picUrl;
         });
 
         
         let songs = await dbFunctions.getItems('playlists/' + playlistId + '/songs');
         if (songs) {
-            for(const [index,songRef] of songs.entries()){
+            for(const [index, songRef] of songs.entries()){
+                if (!songRef) continue;
                 let songId = songRef.id;
                 let songSnapshot = await firebase.database().ref('/songs/' + songId).once('value');
                 let song = songSnapshot.val();
                 console.log(song);
-                const picUrl = await dbFunctions.getItemImage('albums', song.idPicture);
+                const picUrl = await dbFunctions.getItemImage(song.idPicture);
                 let searchLI = document.createElement('LI');
                 searchLI.className = 'cur-playlist-item';
                 searchLI.innerHTML = `
@@ -125,7 +138,7 @@ let PlaylistAdd = {
             searchlist.innerHTML = "";
             allSongs.forEach(async function(songRef, index){
                 if (query && (songRef.name.toLowerCase().includes(query) || songRef.artist.toLowerCase().includes(query))) {
-                    const picUrl = await dbFunctions.getItemImage('albums', songRef.idPicture);
+                    const picUrl = await dbFunctions.getItemImage(songRef.idPicture);
                     let searchLI = document.createElement('LI');
                     searchLI.className = 'song-item';
                     searchLI.id = index;
@@ -162,7 +175,7 @@ let PlaylistAdd = {
                         let song = songSnapshot.val();
                         console.log(song);
                         
-                        let picUrl = await dbFunctions.getItemImage('albums/', song.idPicture); 
+                        let picUrl = await dbFunctions.getItemImage(song.idPicture); 
 
                         let playlistLI = document.createElement('LI');
                         playlistLI.className = 'song-item';
@@ -190,8 +203,6 @@ let PlaylistAdd = {
         }
 
         // Buttons and clicks
-
-        //fixme: add "songs/" if it's does not exist
         searchlist.addEventListener("click", async function(e){
             event.preventDefault();
             if (e.target && e.target.nodeName == "LI" || e.target.nodeName == "P") {
@@ -220,7 +231,10 @@ let PlaylistAdd = {
             if(request.resource == "add_playlist") {
                 console.log(playlistId+1);
                 firebase.database().ref('/playlist_id/id').set(playlistId+1);
+                firebase.database().ref('users/' + userId + '/likedPlaylists/' + (user.likedPlaylistsCount + 1) + '/id').set(playlistId);
+                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(user.likedPlaylistsCount + 1);
             }
+
             document.location.href ="/#/playlist/" + playlistId;
         });
 
@@ -232,12 +246,12 @@ let PlaylistAdd = {
         addPicButton.addEventListener('change', async (event) => {
             let file = event.target.files[0];
 
-            let storageRef = firebase.storage().ref('playlists/idPlaylist' + playlistId + '.png');
+            let storageRef = firebase.storage().ref('pics/idPlaylist' + playlistId + '.png');
             await storageRef.put(file);
 
             firebase.database().ref('/playlists/' + playlistId + '/idPicture').set('idPlaylist' + playlistId);
 
-            let picUrl = await dbFunctions.getItemImage('playlists', 'idPlaylist' + playlistId);
+            let picUrl = await dbFunctions.getItemImage('idPlaylist' + playlistId);
             cover.src = picUrl;
         });
 

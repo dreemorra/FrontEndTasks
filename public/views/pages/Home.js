@@ -56,6 +56,9 @@ let Home = {
         const albums = await dbFunctions.getItems('albums');
         const playlists = await dbFunctions.getItems('playlists');
         const songs = await dbFunctions.getItems('songs');
+        const users = await dbFunctions.getItems('users');
+        let likedPlaylistsList;
+
         let query = ""
 
         sidebar.innerHTML = await Sidebar.render();
@@ -69,31 +72,67 @@ let Home = {
             }
         });
 
+        if (firebase.auth().currentUser) {
+            let likedPlaylists;
+            for(const [index, userRef] of users.entries()){
+                if (!userRef) continue;
+                let userId = index;
+                console.log("UserId: " + userId);
+                if (userRef.username == firebase.auth().currentUser.email) {
+                    likedPlaylists = await dbFunctions.getItems('users/' + userId + '/likedPlaylists');
+                    break;
+                }
+            }
+
+            if(likedPlaylists) {
+                likedPlaylistsList = playlists.filter((elem) => {
+                    return likedPlaylists.some((filter) => {
+                        return filter.id === elem.id;
+                    });
+                });
+            }
+            console.log(likedPlaylistsList);
+        }
+
         const searchInput = document.getElementById('search-input');
+
+        function getPlaylistType(str) {
+            if (str.includes("Album")) {
+                return "album";
+            } else if (str.includes("Artist")) {
+                return "artist";
+            } else if (str.includes("Genre")) {
+                return "genre";
+            } else if (str.includes("Playlist")) {
+                return "playlist";
+            }
+        }
 
         if(playlists) {
             console.log(playlists);
-            playlists.slice(1).forEach(async function(playlistRef) {
-                const picUrl = await dbFunctions.getItemImage('playlists', playlistRef.idPicture);
+            playlists.slice(1,5).forEach(async function(playlistRef) {
+                const picUrl = await dbFunctions.getItemImage(playlistRef.idPicture);
+                let playlistType = getPlaylistType(playlistRef.idPicture);
                 let playlistLI = document.createElement('LI');
                 playlistLI.className = 'playlist-item';
                 playlistLI.innerHTML = `
                 <div class="playlist-div">
-                    <a href="/#/playlist/${playlistRef.id}">
+                    <a href="/#/${playlistType}/${playlistRef.id}">
                         <img class="playlist-img" src=${picUrl} alt="Playlist image">
                         <div class="playlist-play-btn">
                             <span class="medium-play-btn"> play_arrow </span>
                         </div>
                     </a>
-                    <a class="playlist-name-link" href="/#/playlist/${playlistRef.id}">${playlistRef.name}</a>
+                    <a class="playlist-name-link" href="/#/${playlistType}/${playlistRef.id}">${playlistRef.name}</a>
                     <p class="playlist-description">${playlistRef.desc}</p>
                 </div>
                 `
                 popularlist.appendChild(playlistLI);
             });
+        }
 
-            librarylist.innerHTML = `
-                <a id="liked-ref" href="/#/playlist/0">
+        librarylist.innerHTML = `
+                <a id="liked-ref" href="/#/liked">
                 <li id="liked-item">
                     <div id="liked-div">
                         <p id="liked-description">Liked songs</p>
@@ -102,21 +141,23 @@ let Home = {
                 </li>
                 </a>
                 `
-            
-            playlists.slice(1,5).forEach(async function(playlistRef) {
-                const picUrl = await dbFunctions.getItemImage('playlists', playlistRef.idPicture);
+                
+        if(likedPlaylistsList) {
+
+            likedPlaylistsList.forEach(async function(playlistRef) {
+                const picUrl = await dbFunctions.getItemImage(playlistRef.idPicture);
+                let playlistType = getPlaylistType(playlistRef.idPicture);
                 let playlistLI = document.createElement('LI');
-                console.log(playlistRef.id);
                 playlistLI.className = 'playlist-item';
                 playlistLI.innerHTML = `
                 <div class="playlist-div">
-                    <a href="/#/playlist/${playlistRef.id}">
+                    <a href="/#/${playlistType}/${playlistRef.id}">
                         <img class="playlist-img" src=${picUrl} alt="Playlist image">
                         <div class="playlist-play-btn">
                             <span class="medium-play-btn"> play_arrow </span>
                         </div>
                     </a>
-                    <a class="playlist-name-link" href="/#/playlist/${playlistRef.id}">${playlistRef.name}</a>
+                    <a class="playlist-name-link" href="/#/${playlistType}/${playlistRef.id}">${playlistRef.name}</a>
                     <p class="playlist-description">${playlistRef.desc}</p>
                 </div>
                 `
@@ -130,7 +171,7 @@ let Home = {
             searchlist.innerHTML = "";
             songs.forEach(async function(songRef){
                 if (query && (songRef.name.toLowerCase().includes(query) || songRef.artist.toLowerCase().includes(query))) {
-                    const picUrl = await dbFunctions.getItemImage('albums', songRef.idPicture);
+                    const picUrl = await dbFunctions.getItemImage(songRef.idPicture);
                     let searchLI = document.createElement('LI');
                     searchLI.className = 'song-item';
                     searchLI.innerHTML = `
@@ -152,7 +193,7 @@ let Home = {
 
         if (albums) {
             albums.forEach(async function(albumRef){
-                const picUrl = await dbFunctions.getItemImage('albums', albumRef.idPicture);
+                const picUrl = await dbFunctions.getItemImage(albumRef.idPicture);
                 let albumLI = document.createElement('LI');
                 albumLI.className = 'playlist-item';
                 albumLI.innerHTML = `
@@ -173,7 +214,7 @@ let Home = {
 
         if (genres) {
             genres.forEach(async function(genreRef){
-                const picUrl = await dbFunctions.getItemImage('genres', genreRef.idPicture);
+                const picUrl = await dbFunctions.getItemImage(genreRef.idPicture);
                 let genreLI = document.createElement('LI');
                 genreLI.className = 'genre-item';
                 genreLI.innerHTML = `
@@ -187,7 +228,7 @@ let Home = {
 
         if (artists) {
             artists.forEach(async function(artistRef){
-                const picUrl = await dbFunctions.getItemImage('artists', artistRef.idPicture);
+                const picUrl = await dbFunctions.getItemImage(artistRef.idPicture);
                 let artistLI = document.createElement('LI');
                 artistLI.className = 'playlist-item';
                 artistLI.innerHTML = `
