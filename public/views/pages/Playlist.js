@@ -125,16 +125,20 @@ let Playlist = {
             for(const [index, songRef] of songs.entries()){
                 if (!songRef) continue;
                 let songId = songRef.id;
-                // console.log("songId " + songId);
+                console.log("songId " + songId);
                 let songSnapshot = await firebase.database().ref('/songs/' + songId).once('value');
                 let song = songSnapshot.val();
                 // console.log(song);
                 let isLikedSong = false;
+                console.log(likedSongs);
                 if(likedSongs) {
                     isLikedSong = likedSongs.filter(elem => elem.id == songId);
                 }
                 let likeIcon;
-                if (isLikedSong) likeIcon = "favorite"; else likeIcon = "favorite_border";
+                console.log(isLikedSong);
+                if (isLikedSong.length > 0) 
+                    likeIcon = "favorite"; 
+                else likeIcon = "favorite_border";
 
                 const picUrl = await dbFunctions.getItemImage(song.idPicture);
                 let searchLI = document.createElement('LI');
@@ -179,22 +183,27 @@ let Playlist = {
                     let index = e.target.id.substr(1);
                     const likedId = songs[index].id;
                     const likeButton = document.getElementById(e.target.id);
-                    // console.log("liked id:" + likedId);
+                    console.log("liked id:" + likedId);
 
                     likedSongs = await dbFunctions.getItems('users/' + userId + '/likedSongs');
+                    let likedSongsCount = await dbFunctions.getItems('users/' + userId + '/likedSongsCount');
+
                     let isLikedSong = false;
-                    if(likedSongs) {
+                    console.log(likedSongs);
+                    if(likedSongs && likedSongs.length > 0) {
                         isLikedSong = likedSongs.filter(elem => elem.id == likedId);
                     }
-                    if (isLikedSong.length > 0) {
+                    console.log(isLikedSong);
+                    if (isLikedSong == false && isLikedSong.length > 0) {
                         const likedSongIndex = getLikedIndex(likedSongs, likedId);
+                        console.log("liked index: " + likedSongIndex);
                         firebase.database().ref('users/' + userId + '/likedSongs/' + likedSongIndex).remove();
-                        firebase.database().ref('users/' + userId + '/likedSongsCount').set(user.likedSongsCount - 1);
+                        firebase.database().ref('users/' + userId + '/likedSongsCount').set(likedSongsCount - 1);
                         likeButton.innerHTML = `<span style="color: rgba(251, 192, 45);" class="material-icons"> favorite_border </span>`;
                         console.log("Unlike!");
                     } else {
-                        firebase.database().ref('users/' + userId + '/likedSongs/' + (user.likedSongsCount + 1) + '/id').set(likedId);
-                        firebase.database().ref('users/' + userId + '/likedSongsCount').set(user.likedSongsCount + 1);
+                        firebase.database().ref('users/' + userId + '/likedSongs/' + (likedSongsCount + 1) + '/id').set(likedId);
+                        firebase.database().ref('users/' + userId + '/likedSongsCount').set(likedSongsCount + 1);
                         likeButton.innerHTML = `<span style="color: rgba(251, 192, 45);" class="material-icons"> favorite </span>`;  
                         console.log("Like!");
                     }
@@ -209,13 +218,14 @@ let Playlist = {
         favoritesButton.addEventListener("click", async function(e) {
             if(isLikedPlaylist.length > 0) {
                 likedPlaylists = await dbFunctions.getItems('users/' + userId + '/likedPlaylists');
+                let likedPlaylistsCount = await dbFunctions.getItems('users/' + userId + '/likedPlaylistsCount');
                 const likedPlaylistIndex = getLikedIndex(likedPlaylists, playlistId);
                 firebase.database().ref('users/' + userId + '/likedPlaylists/' + likedPlaylistIndex).remove();
-                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(user.likedPlaylistsCount - 1);
+                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(likedPlaylistsCount - 1);
                 favoritesButton.innerHTML = "Add to Favorites";
             } else {
-                firebase.database().ref('users/' + userId + '/likedPlaylists/' + (user.likedPlaylistsCount + 1) + '/id').set(parseInt(playlistId));
-                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(user.likedPlaylistsCount + 1);
+                firebase.database().ref('users/' + userId + '/likedPlaylists/' + (likedPlaylistsCount + 1) + '/id').set(parseInt(playlistId));
+                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(likedPlaylistsCount + 1);
                 favoritesButton.innerHTML = "Favorite!";  
             }
         });

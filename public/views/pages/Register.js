@@ -9,7 +9,7 @@ let Register = {
             <form>
                 <h2> Sign up </h2>
                 <p class="helpText">To continue, sign up on Breewer</p>
-                <input id="username_input" type="text" placeholder="Username" >
+                <input id="username_input" type="text" placeholder="Email" >
                 <input id="pass_input" type="password" placeholder="Password" size="34">
                 <input id="confirm_pass_input" type="password" placeholder="Confirm password" size="34">
                 <p id="error_p" style="margin-top: 10px; color: red;"></p>

@@ -15,9 +15,9 @@ let Player = {
                 <button id="player-next" class="mdc-icon-button material-icons player-button">fast_forward</button>
               </div style="display: flex; flex-direction: row">
               <div class="song-details" style="display: grid;">
-                <img class="song-image" id="song-img" style="grid-row: 1/3; grid-column: 1; margin: 0px 10px 0px 10px" src="">
-                <p class="song-name" id="player-name" style="grid-row: 1; grid-column: 2; color: white; text-align: start"></p>
-                <p class="song-artist" id="player-author" style="grid-row: 2; grid-column: 2; color: white; text-align: start"></p>
+                <img class="player-song-image song-image" id="song-img" src="">
+                <p class="player-song-name song-name" id="player-name"></p>
+                <p class="player-song-artist song-artist" id="player-author"></p>
               </div>
             </div>
             <div class="player-duration">
@@ -109,7 +109,6 @@ let Player = {
             }else{
                 pause();
                 document.getElementById('player_container').classList.add("hide");
-                console.log("i like multithreading in js");
             }
         });
 
