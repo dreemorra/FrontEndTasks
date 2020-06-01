@@ -39,9 +39,12 @@ let Register = {
                 const promise = auth.createUserWithEmailAndPassword(email.value, pass.value);
                 
                 promise
-                    .then(function(regUser){
-                        firebase.database().ref('/user_id/id').set(userId + 1);
-                        firebase.database().ref('/users/' + userId).set({
+                    .then(async function(regUser){
+                        await firebase.database().ref('/play_queue/' + userId).set({
+                            email: email.value
+                        });
+                        await firebase.database().ref('/user_id/id').set(userId + 1);
+                        await firebase.database().ref('/users/' + userId).set({
                             username: email.value,
                             likedSongsCount: 0,
                             likedPlaylistsCount: 0

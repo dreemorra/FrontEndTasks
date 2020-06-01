@@ -49,6 +49,7 @@ let Playlist = {
         const editButton = document.getElementById('edit-button');
         const favoritesButton = document.getElementById('favorites-button');
         const songButton = document.getElementById('playlist-list');
+        const playPlaylistButton = document.getElementById('play-button');
 
         let playlist;
         if (request.resource == "liked") {
@@ -166,6 +167,14 @@ let Playlist = {
         songButton.addEventListener("click", async function(e){
             event.preventDefault();
             if (e.target && e.target.nodeName == "SPAN") {
+                if(e.target.id.includes("a")) {
+                    console.log(e.target.id);
+                    if (firebase.auth().currentUser) {
+                    dbFunctions.pushPlaylist(firebase.auth().currentUser.email, [songs[e.target.id.substr(1)].id]);
+                    } else {
+                        alert("Login first.")
+                    }
+                }
                 if(e.target.id.includes("b")) {
                     let index = e.target.id.substr(1);
                     const likedId = songs[index].id;
@@ -208,6 +217,15 @@ let Playlist = {
                 firebase.database().ref('users/' + userId + '/likedPlaylists/' + (user.likedPlaylistsCount + 1) + '/id').set(parseInt(playlistId));
                 firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(user.likedPlaylistsCount + 1);
                 favoritesButton.innerHTML = "Favorite!";  
+            }
+        });
+
+        playPlaylistButton.addEventListener("click",async function(e) {
+            if (firebase.auth().currentUser){
+                let list = await dbFunctions.getPlaylistList(playlistId);
+                dbFunctions.pushPlaylist(firebase.auth().currentUser.email, list);
+            }else{
+                alert("Login first.")
             }
         });
 
