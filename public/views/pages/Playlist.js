@@ -149,7 +149,7 @@ let Playlist = {
                     <div class="playlist-song-div">
                         <img class="playlist-song-image" src=${picUrl} alt="Song image">
                         <div class="song-play-btn">
-                            <span id="play${index}" class="medium-play-btn"> play_arrow </span>
+                            <span id="play" data-index="${index}" class="medium-play-btn"> play_arrow </span>
                         </div>
                     </div>
                     <div class="song-info">
@@ -159,7 +159,7 @@ let Playlist = {
                     </div>
                 <div style="display: flex;">
                     <div class="song-time">
-                        <span id="like${index}" style="color: rgba(251, 192, 45);" class="material-icons"> ${likeIcon} </span>
+                        <span id="like" data-index="${index}" style="color: rgba(251, 192, 45);" class="material-icons"> ${likeIcon} </span>
                     </div>
                     <p class="song-time">2:28</p>
                 </div>
@@ -172,16 +172,16 @@ let Playlist = {
         songButton.addEventListener("click", async function(e){
             event.preventDefault();
             if (e.target && e.target.nodeName == "SPAN") {
-                if(e.target.id.includes("play")) {
-                    console.log(e.target.id);
+                let index = parseInt(e.target.dataset.index);
+                console.log(e.target.id);
+                if(e.target.id == "play") {
                     if (firebase.auth().currentUser) {
-                    dbFunctions.pushPlaylist(firebase.auth().currentUser.email, [songs[e.target.id.substr(4)].id]);
+                    dbFunctions.pushPlaylist(firebase.auth().currentUser.email, [songs[index].id]);
                     } else {
                         alert("Login first.")
                     }
                 }
-                if(e.target.id.includes("like")) {
-                    let index = e.target.id.substr(4);
+                if(e.target.id == "like") {
                     const likedId = songs[index].id;
                     const likeButton = document.getElementById(e.target.id);
                     console.log("liked id:" + likedId);
@@ -195,7 +195,7 @@ let Playlist = {
                         isLikedSong = likedSongs.filter(elem => elem.id == likedId);
                     }
                     console.log(isLikedSong);
-                    if (isLikedSong == false && isLikedSong.length > 0) {
+                    if (isLikedSong.length > 0) {
                         const likedSongIndex = getLikedIndex(likedSongs, likedId);
                         console.log("liked index: " + likedSongIndex);
                         firebase.database().ref('users/' + userId + '/likedSongs/' + likedSongIndex).remove();
