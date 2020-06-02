@@ -169,7 +169,7 @@ let Home = {
             query = searchInput.value;
             // console.log(query);
             searchlist.innerHTML = "";
-            songs.forEach(async function(songRef){
+            songs.forEach(async function(songRef, index) {
                 if (query && (songRef.name.toLowerCase().includes(query) || songRef.artist.toLowerCase().includes(query))) {
                     const picUrl = await dbFunctions.getItemImage(songRef.idPicture);
                     let searchLI = document.createElement('LI');
@@ -178,7 +178,7 @@ let Home = {
                     <div class="song-image-div">
                         <img class="song-image" src=${picUrl} alt="Song image">
                         <div class="song-play-btn">
-                            <span class="little-play-btn"> play_arrow </span>
+                            <span id="a${index}" class="little-play-btn"> play_arrow </span>
                         </div>
                     </div>
                     <div class="song-info">
@@ -245,7 +245,21 @@ let Home = {
                 artistlist.appendChild(artistLI);
             });
         }
-    }
+
+        searchlist.addEventListener("click", async function(e){
+            event.preventDefault();
+            if (e.target && e.target.nodeName == "SPAN") {
+                if(e.target.id.includes("a")) {
+                    console.log(e.target.id);
+                    if (firebase.auth().currentUser) {
+                    dbFunctions.pushPlaylist(firebase.auth().currentUser.email, [parseInt(e.target.id.substr(1))]);
+                    } else {
+                        alert("Login first.")
+                    }
+                }  
+            }
+        });
+    }   
 }
 
 export default Home;

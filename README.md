@@ -4,4 +4,4 @@
 
 Тема проекта: 9. Music player
 
-Ссылка на сайт: https://breewer-4c15e.web.app/
+Ссылка на сайт: https://breewer2.web.app

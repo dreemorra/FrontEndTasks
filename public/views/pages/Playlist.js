@@ -49,11 +49,13 @@ let Playlist = {
         const editButton = document.getElementById('edit-button');
         const favoritesButton = document.getElementById('favorites-button');
         const songButton = document.getElementById('playlist-list');
+        const playPlaylistButton = document.getElementById('play-button');
 
         let playlist;
         if (request.resource == "liked") {
             playlistId = 0;
             playlist = await dbFunctions.getItems('playlists/' + playlistId);
+            document.getElementById('actions').classList.add('hide');
         } else {
             playlistId = decodeURIComponent(request.id);
             playlist = await dbFunctions.getItems('playlists/' + playlistId);}
@@ -124,16 +126,20 @@ let Playlist = {
             for(const [index, songRef] of songs.entries()){
                 if (!songRef) continue;
                 let songId = songRef.id;
-                // console.log("songId " + songId);
+                console.log("songId " + songId);
                 let songSnapshot = await firebase.database().ref('/songs/' + songId).once('value');
                 let song = songSnapshot.val();
                 // console.log(song);
                 let isLikedSong = false;
+                console.log(likedSongs);
                 if(likedSongs) {
                     isLikedSong = likedSongs.filter(elem => elem.id == songId);
                 }
                 let likeIcon;
-                if (isLikedSong) likeIcon = "favorite"; else likeIcon = "favorite_border";
+                console.log(isLikedSong);
+                if (isLikedSong.length > 0) 
+                    likeIcon = "favorite"; 
+                else likeIcon = "favorite_border";
 
                 const picUrl = await dbFunctions.getItemImage(song.idPicture);
                 let searchLI = document.createElement('LI');
@@ -143,7 +149,7 @@ let Playlist = {
                     <div class="playlist-song-div">
                         <img class="playlist-song-image" src=${picUrl} alt="Song image">
                         <div class="song-play-btn">
-                            <span id="a${index}" class="medium-play-btn"> play_arrow </span>
+                            <span id="play" data-index="${index}" class="medium-play-btn"> play_arrow </span>
                         </div>
                     </div>
                     <div class="song-info">
@@ -153,7 +159,7 @@ let Playlist = {
                     </div>
                 <div style="display: flex;">
                     <div class="song-time">
-                        <span id="b${index}" style="color: rgba(251, 192, 45);" class="material-icons"> ${likeIcon} </span>
+                        <span id="like" data-index="${index}" style="color: rgba(251, 192, 45);" class="material-icons"> ${likeIcon} </span>
                     </div>
                     <p class="song-time">2:28</p>
                 </div>
@@ -166,26 +172,39 @@ let Playlist = {
         songButton.addEventListener("click", async function(e){
             event.preventDefault();
             if (e.target && e.target.nodeName == "SPAN") {
-                if(e.target.id.includes("b")) {
-                    let index = e.target.id.substr(1);
+                let index = parseInt(e.target.dataset.index);
+                console.log(e.target.id);
+                if(e.target.id == "play") {
+                    if (firebase.auth().currentUser) {
+                    dbFunctions.pushPlaylist(firebase.auth().currentUser.email, [songs[index].id]);
+                    } else {
+                        alert("Login first.")
+                    }
+                }
+                if(e.target.id == "like") {
                     const likedId = songs[index].id;
                     const likeButton = document.getElementById(e.target.id);
-                    // console.log("liked id:" + likedId);
+                    console.log("liked id:" + likedId);
 
                     likedSongs = await dbFunctions.getItems('users/' + userId + '/likedSongs');
+                    let likedSongsCount = await dbFunctions.getItems('users/' + userId + '/likedSongsCount');
+
                     let isLikedSong = false;
-                    if(likedSongs) {
+                    console.log(likedSongs);
+                    if(likedSongs && likedSongs.length > 0) {
                         isLikedSong = likedSongs.filter(elem => elem.id == likedId);
                     }
+                    console.log(isLikedSong);
                     if (isLikedSong.length > 0) {
                         const likedSongIndex = getLikedIndex(likedSongs, likedId);
+                        console.log("liked index: " + likedSongIndex);
                         firebase.database().ref('users/' + userId + '/likedSongs/' + likedSongIndex).remove();
-                        firebase.database().ref('users/' + userId + '/likedSongsCount').set(user.likedSongsCount - 1);
+                        firebase.database().ref('users/' + userId + '/likedSongsCount').set(likedSongsCount - 1);
                         likeButton.innerHTML = `<span style="color: rgba(251, 192, 45);" class="material-icons"> favorite_border </span>`;
                         console.log("Unlike!");
                     } else {
-                        firebase.database().ref('users/' + userId + '/likedSongs/' + (user.likedSongsCount + 1) + '/id').set(likedId);
-                        firebase.database().ref('users/' + userId + '/likedSongsCount').set(user.likedSongsCount + 1);
+                        firebase.database().ref('users/' + userId + '/likedSongs/' + (likedSongsCount + 1) + '/id').set(likedId);
+                        firebase.database().ref('users/' + userId + '/likedSongsCount').set(likedSongsCount + 1);
                         likeButton.innerHTML = `<span style="color: rgba(251, 192, 45);" class="material-icons"> favorite </span>`;  
                         console.log("Like!");
                     }
@@ -198,16 +217,26 @@ let Playlist = {
         });
 
         favoritesButton.addEventListener("click", async function(e) {
+            let likedPlaylistsCount = await dbFunctions.getItems('users/' + userId + '/likedPlaylistsCount');
             if(isLikedPlaylist.length > 0) {
                 likedPlaylists = await dbFunctions.getItems('users/' + userId + '/likedPlaylists');
                 const likedPlaylistIndex = getLikedIndex(likedPlaylists, playlistId);
                 firebase.database().ref('users/' + userId + '/likedPlaylists/' + likedPlaylistIndex).remove();
-                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(user.likedPlaylistsCount - 1);
+                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(likedPlaylistsCount - 1);
                 favoritesButton.innerHTML = "Add to Favorites";
             } else {
-                firebase.database().ref('users/' + userId + '/likedPlaylists/' + (user.likedPlaylistsCount + 1) + '/id').set(parseInt(playlistId));
-                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(user.likedPlaylistsCount + 1);
+                firebase.database().ref('users/' + userId + '/likedPlaylists/' + (likedPlaylistsCount + 1) + '/id').set(parseInt(playlistId));
+                firebase.database().ref('users/' + userId + '/likedPlaylistsCount').set(likedPlaylistsCount + 1);
                 favoritesButton.innerHTML = "Favorite!";  
+            }
+        });
+
+        playPlaylistButton.addEventListener("click",async function(e) {
+            if (firebase.auth().currentUser){
+                let list = await dbFunctions.getPlaylistList(playlistId);
+                dbFunctions.pushPlaylist(firebase.auth().currentUser.email, list);
+            }else{
+                alert("Login first.")
             }
         });
 

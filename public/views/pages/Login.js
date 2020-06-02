@@ -7,7 +7,7 @@ let Login = {
             <form>
                 <h2> Log in </h2>
                 <p class="helpText">To continue, log in to Breewer</p>
-                <input id="username_input" type="text" placeholder="Username" size="34">
+                <input id="username_input" type="text" placeholder="Email" size="34">
                 <input id="password_input" type="password" placeholder="Password" size="34">
                 <p id="error_p" style="margin-top: 10px; color: red;"></p>
                 <input type="submit" id="login-btn" class="btn-dark" value="Continue">

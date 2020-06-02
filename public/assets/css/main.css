@@ -667,13 +667,6 @@ form input {
     position: relative;
 }
 
-input[type="range"] {
-    width: 100%;
-    position: absolute;
-    top: -30px;
-    left: 0;
-}
-
 .player-content {
     height: 50px;
     display: flex;
@@ -685,12 +678,88 @@ input[type="range"] {
     background-color: transparent;
     border: 0;
     color: rgba(251, 192, 45);
-    scale: 2;
+    transform: scale(2);
     margin: 5px;
 }
 
 .player-duration-time {
-    margin: 20px 10px;
+    margin: 10px 20px;
     font-size: 1.5em;
     color: white;
+}
+
+input[type="range"] {
+    width: 100%;
+    position: absolute;
+    top: -30px;
+    left: 0;
+    background-color: transparent;
+}
+
+/*Mozilla*/
+input[type="range"]::-moz-range-progress {
+    background-color: rgba(251, 192, 45); 
+}
+
+input[type=range]::-moz-range-track {
+    height: 5px;
+}
+
+input[type=range]::-moz-range-thumb {
+    border: 0;
+    background-color: transparent;
+}
+
+input[type=range]::-moz-focus-outer {
+    border: 0;
+}
+
+/* Webkit */
+input[type='range'] {
+    overflow: hidden;
+    width: 100%;
+    -webkit-appearance: none;
+    outline: none;
+  }
+  
+input[type='range']::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    width: 10px;
+    -webkit-appearance: none;
+    height: 10px;
+    cursor: ew-resize;
+    background: rgba(251, 192, 45);
+    box-shadow: -100vw 0 0 100vw rgba(251, 192, 45);
+}
+
+button::-moz-focus-inner {
+    border: 0;
+}
+
+button:focus {
+    outline: 0;
+}
+
+.player-song-image {
+    grid-row: 1/3; 
+    grid-column: 1; 
+    margin: 0px 10px 0px 10px;
+}
+
+.player-song-name {
+    grid-row: 1; 
+    grid-column: 2; 
+    color: white; 
+    text-align: start
+}
+
+.player-song-artist {
+    grid-row: 2; 
+    grid-column: 2; 
+    color: white; 
+    text-align: start;
 }
